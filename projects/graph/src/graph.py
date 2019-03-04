@@ -125,6 +125,22 @@ class Graph:
                     q.enqueue(node)
         return False
 
+    def dfs(self, starting_vertex_id, target_vertex_id):
+        s = Stack()
+        visited = []
+
+        s.push(starting_vertex_id)
+
+        while s.size() > 0:
+            v = s.pop()
+            visited.append(v)
+            for node in self.vertices[v]:
+                if node not in visited:
+                    if node == target_vertex_id:
+                        return True
+                    s.push(node)
+        return False
+
 
 graph = Graph()  # Instantiate your graph
 graph.add_vertex('1')
