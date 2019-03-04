@@ -44,7 +44,10 @@ class Graph:
         self.vertices = {}
 
     def add_vertex(self, vertex_id):
-        self.vertices[vertex_id] = set()
+        if vertex_id in self.vertices:
+            raise Exception('Vertex already exists.')
+        else:
+            self.vertices[vertex_id] = set()
 
     def add_directed_edge(self, v1, v2):
         if v1 in self.vertices and v2 in self.vertices:
