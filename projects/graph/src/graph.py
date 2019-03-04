@@ -114,13 +114,13 @@ class Graph:
 
     def bfs(self, starting_vertex_id, target_vertex_id):
         q = Queue()
-        visited = []
+        visited = set()
 
         q.enqueue(starting_vertex_id)
 
         while q.size() > 0:
             v = q.dequeue()
-            visited.append(v)
+            visited.add(v)
             for node in self.vertices[v]:
                 if node not in visited:
                     if node == target_vertex_id:
@@ -130,13 +130,13 @@ class Graph:
 
     def dfs(self, starting_vertex_id, target_vertex_id):
         s = Stack()
-        visited = []
+        visited = set()
 
         s.push(starting_vertex_id)
 
         while s.size() > 0:
             v = s.pop()
-            visited.append(v)
+            visited.add(v)
             for node in self.vertices[v]:
                 if node not in visited:
                     if node == target_vertex_id:
