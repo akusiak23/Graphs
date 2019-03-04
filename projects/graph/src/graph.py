@@ -99,13 +99,31 @@ class Graph:
                 for neighbor in self.vertices[v]:
                     s.push(neighbor)
 
-    def dft_rec(self, v, visited=None):
+    def dft_rec(self, starting_vertex_id, visited=None):
         if visited is None:
             visited = []
-        if v not in visited:
+        if starting_vertex_id not in visited:
+            visited.append(starting_vertex_id)
+        for node in self.vertices[starting_vertex_id]:
+            if node not in visited:
+                self.dft_rec(node, visited)
+        return visited
+
+    def bfs(self, starting_vertex_id, target_vertex_id):
+        q = Queue()
+        visited = []
+
+        q.enqueue(starting_vertex_id)
+
+        while q.size() > 0:
+            v = q.dequeue()
             visited.append(v)
-        for neighbor in self.vertices[v]:
-            self.dft_rec(neighbor, visited)
+            for node in self.vertices[v]:
+                if node not in visited:
+                    if node == target_vertex_id:
+                        return True
+                    q.enqueue(node)
+        return False
 
 
 graph = Graph()  # Instantiate your graph
