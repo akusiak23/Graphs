@@ -104,9 +104,9 @@ class Graph:
 
     def dft_rec(self, starting_vertex_id, visited=None):
         if visited is None:
-            visited = []
+            visited = set()
         if starting_vertex_id not in visited:
-            visited.append(starting_vertex_id)
+            visited.add(starting_vertex_id)
         for node in self.vertices[starting_vertex_id]:
             if node not in visited:
                 self.dft_rec(node, visited)
@@ -143,24 +143,3 @@ class Graph:
                         return True
                     s.push(node)
         return False
-
-
-graph = Graph()  # Instantiate your graph
-graph.add_vertex('1')
-graph.add_vertex('2')
-graph.add_vertex('3')
-graph.add_vertex('4')
-graph.add_vertex('5')
-graph.add_vertex('6')
-graph.add_vertex('7')
-graph.add_directed_edge('5', '3')
-graph.add_directed_edge('6', '3')
-graph.add_directed_edge('7', '1')
-graph.add_directed_edge('4', '7')
-graph.add_directed_edge('1', '2')
-graph.add_directed_edge('7', '6')
-graph.add_directed_edge('2', '4')
-graph.add_directed_edge('3', '5')
-graph.add_directed_edge('2', '3')
-graph.add_directed_edge('4', '6')
-print(graph.vertices)
