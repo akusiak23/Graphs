@@ -24,6 +24,49 @@ player = Player("Name", world.startingRoom)
 # FILL THIS IN
 traversalPath = ['n', 's']
 
+def backtrack(direction):
+    if direction is 'n':
+        return 's' 
+    elif direction is 's':
+        return 'n'
+    elif direction is 'e':
+        return 'w'
+    elif direction is 'w':
+        return 'e'
+
+def traverse_path(player):
+    traversalGraph = {}
+    retrace_steps = []
+    traversalGraph[player.currentRoom.id] = {}
+    while len(traversalGraph)<500:
+        
+        new_room_check = False        
+        room_exits = player.currentRoom.getExits()        
+        current_room_id = player.currentRoom.id
+        
+        for direction in room_exits:            
+            if traversalGraph[current_room_id].get(direction, '?') == '?':                
+                player.travel(direction)                
+                new_room_id = player.currentRoom.id                
+                traversalPath.append(direction)                
+                traversalGraph[current_room_id][direction] = new_room_id
+
+                if not traversalGraph.get(new_room_id, None):                    
+                    traversalGraph[new_room_id] = {}               
+                traversalGraph[new_room_id][backtrack(direction)] = current_room_id                
+                retrace_steps.append(backtrack(direction))                
+                new_room_check = True                
+                break            
+            else:                
+                continue
+        
+        if new_room_check == False:            
+            retrace = retrace_steps.pop()            
+            traversalPath.append(retrace)            
+            player.travel(retrace)
+
+traverse_path(player)
+
 
 
 
